@@ -1,0 +1,53 @@
+public class PurchaseController {
+
+	private PlanesRepository repoPlan;
+
+	private CursosRepository repoCu;
+		
+	@GetMapping("/courses/buy/{courseId}")
+	public String buyCourse(@PathVariable Integer courseId, Model model) {
+	    
+	    Optional<Curso> cursoOpt = repoCu.findById(courseId);
+	    
+	    if (cursoOpt.isPresent()) {
+	        Curso curso = cursoOpt.get();
+	        
+	        model.addAttribute("curso", curso);
+	        model.addAttribute("mensaje", "¡Curso comprado exitosamente!");
+	        
+	        return "buy-confirmation";
+	    } else {
+	        model.addAttribute("error", "Curso no encontrado.");
+	        return "buy-error";
+	    }
+	}
+	
+	
+	@PostMapping("/courses/buy-plan")
+	public String buyPlan(@RequestParam Integer planId, Model model) {
+	    Optional<Plan> planOpt = repoPlan.findById(planId);
+	    
+	    if (planOpt.isPresent()) {
+	        Plan plan = planOpt.get();
+	        
+	        model.addAttribute("plan", plan);
+	        model.addAttribute("mensaje", "¡Plan comprado exitosamente!");
+	         
+	        return "buy-confirmation";
+	    } else {
+	        model.addAttribute("error", "Plan no encontrado.");
+	        return "buy-error";
+	    }
+	}
+
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+}
