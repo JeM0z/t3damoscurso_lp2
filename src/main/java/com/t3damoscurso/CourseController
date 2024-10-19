@@ -1,0 +1,24 @@
+package com.t3damoscurso.controller;
+
+import java.util.List;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.t3damoscurso.interfaces.CursosRepository;
+import com.t3damoscurso.models.Curso;
+
+public class CourseController {
+
+	private CursosRepository repoCu;
+	
+	@GetMapping("/courses/list")
+    public String listarCursos(Model model) {
+        List<Curso> cursos = repoCu.findAll();
+        model.addAttribute("Curso", cursos);
+        return "adm-courses-list";
+    }
+		
+	
+	
+}
